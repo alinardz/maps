@@ -1,0 +1,11 @@
+<div id="detail">
+    {{id}}
+</div>
+
+<script>
+    fetch("/api/restaurants/{{id}}")
+    .then(response=>response.json())
+    .then(data=>{
+        document.getElementById("detail").innerHTML = data.name;
+    });
+</script>

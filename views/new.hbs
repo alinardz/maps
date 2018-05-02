@@ -1,0 +1,29 @@
+<form onsubmit="uploadToServer(event)">
+    <input type="text" name="name" id="">
+    <input type="submit">
+</form>
+
+<script>
+    function uploadToServer(event){
+        event.preventDefault();
+        console.log("ando evitando el refresh");
+        //console.log(event.target.name.value);
+        const newrES = {
+            name: event.target.name.value
+        };
+        fetch("/api/restaurants", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            //stringify para convertir a JSON
+            body: JSON.stringify(newRes)
+        })
+        .then(response=>{
+            console.log(response)
+            if(!response.ok) return console.log(response)
+            return response.json();
+        })
+        .then();
+    }
+</script>

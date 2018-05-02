@@ -1,2 +1,41 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<h1>Restaurants</h1>
+<div id="bliss" style="width:500px; height:500px"></div>
+<ul>
+{{#each restaurants}}
+<li><a href="/detail/{{this._id}}">
+<p>{{this.name}} - 
+    lng: {{this.address.coord.[0]}} -
+    lat: {{this.address.coord.[1]}}
+</p></a> <button onclick="removeR('{{this._id}}')">x</button>
+</li>
+{{/each}}
+</ul>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV-TDZH73fGZS2Y8BHVFQP4UKw5QA4kYQ"></script>
+<script src="javascripts/script.js"></script>
+
+<script>
+    //sería http si no fuera local
+function removeR(id){
+
+
+        fetch(`/api/restaurants/${id}` , {
+            method: "delete",
+            headers:{
+                "Content-Type": "application/json"
+            }
+        })
+
+    .then(response=>response.json())
+
+    .then(data=>{
+        console.log(data);
+        setTimeout(()=>{
+            window.location.reload();
+        },3000)
+    });
+
+
+}
+
+</script>
